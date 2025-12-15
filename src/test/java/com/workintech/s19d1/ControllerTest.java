@@ -79,7 +79,7 @@ class ControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$", hasSize(1)))
-                .andExpect(jsonPath("$[0].id", is(actor.getId().intValue())))
+                .andExpect(jsonPath("$[0].id", is((int) actor.getId())))
                 .andExpect(jsonPath("$[0].firstName", is(actor.getFirstName())));
     }
 
@@ -91,7 +91,7 @@ class ControllerTest {
         mockMvc.perform(get("/actor/{id}", actor.getId()))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.id", is(actor.getId().intValue())))
+                .andExpect(jsonPath("$.id", is((int) actor.getId())))
                 .andExpect(jsonPath("$.firstName", is(actor.getFirstName())));
     }
 
@@ -104,7 +104,7 @@ class ControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(actorRequest)))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id", is(actor.getId().intValue())))
+                .andExpect(jsonPath("$.id", is((int) actor.getId())))
                 .andExpect(jsonPath("$.firstName", is(actor.getFirstName())));
     }
 
@@ -118,7 +118,7 @@ class ControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(actor)))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id", is(actor.getId().intValue())))
+                .andExpect(jsonPath("$.id", is((int) actor.getId())))
                 .andExpect(jsonPath("$.firstName", is(actor.getFirstName())));
     }
 
@@ -129,11 +129,10 @@ class ControllerTest {
 
         mockMvc.perform(delete("/actor/{id}", actor.getId()))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id", is(actor.getId().intValue())))
-                .andExpect(jsonPath("$.firstName", is(actor.getFirstName()))); // Assuming you have a getName method.
+                .andExpect(jsonPath("$.id", is((int) actor.getId())))
+                .andExpect(jsonPath("$.firstName", is(actor.getFirstName()))); 
 
-        // Optionally verify that the service method was called
-        // verify(actorService).delete(actor);
+      
     }
 
 
